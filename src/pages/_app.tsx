@@ -9,7 +9,6 @@ import {
 import grey from "@mui/material/colors/grey";
 import { appWithTranslation } from "next-i18next";
 import Head from "next/head";
-import Script from "next/script";
 import React, { useEffect, useState } from "react";
 import useDarkMode from "use-dark-mode";
 import pkg from "../../package.json";
@@ -66,7 +65,6 @@ const App = ({ Component, pageProps }) => {
 
 	return (
 		<>
-			<Script src="/noflash.js" strategy="beforeInteractive" />
 			<Global styles={fontFaces} />
 			<Global styles={globalStyles} />
 			<Head>
