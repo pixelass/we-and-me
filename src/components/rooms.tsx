@@ -76,11 +76,12 @@ const Rooms = () => {
 				<AccordionDetails>
 					<Stack direction="row" spacing={3} alignItems="center">
 						<Slider
+							valueLabelDisplay="on"
 							disabled={isDisabled}
-							value={size}
 							min={2}
 							max={6}
-							onChange={(event_, value) => {
+							defaultValue={size}
+							onChangeCommitted={(event_, value) => {
 								if (value !== size) {
 									void setSize(value as number);
 								}

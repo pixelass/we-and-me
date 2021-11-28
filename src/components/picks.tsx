@@ -72,11 +72,12 @@ const Picks = () => {
 				<AccordionDetails>
 					<Stack direction="row" spacing={3} alignItems="center">
 						<Slider
+							valueLabelDisplay="on"
 							disabled={isDisabled}
-							value={pickSize}
+							defaultValue={pickSize}
 							min={1}
 							max={6}
-							onChange={(event_, value) => {
+							onChangeCommitted={(event_, value) => {
 								if (value !== pickSize) {
 									void setPickSize(value as number);
 								}
