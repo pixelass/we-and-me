@@ -32,6 +32,11 @@ const Rooms = () => {
 		serialize: encodeJSON,
 		fallback: useMemo(() => [] as string[][], []),
 	});
+	const [options] = useQueryState<string[]>(QueryKey.options, {
+		parse: decodeJSON,
+		serialize: encodeJSON,
+		fallback: useMemo(() => [] as string[], []),
+	});
 	const [people] = useQueryState<string[]>(QueryKey.people, {
 		parse: decodeJSON,
 		serialize: encodeJSON,
@@ -76,10 +81,11 @@ const Rooms = () => {
 				<AccordionDetails>
 					<Stack direction="row" spacing={3} alignItems="center">
 						<Slider
+							key={size}
 							valueLabelDisplay="on"
 							disabled={isDisabled}
 							min={2}
-							max={6}
+							max={Math.max(3, Math.ceil(options.length / 2))}
 							defaultValue={size}
 							onChangeCommitted={(event_, value) => {
 								if (value !== size) {

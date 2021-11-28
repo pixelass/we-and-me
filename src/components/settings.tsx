@@ -28,15 +28,24 @@ const Settings: FC = ({ children }) => {
 		{
 			[QueryKey.people]: useMemo(() => [], []),
 			[QueryKey.options]: useMemo(() => [], []),
+			[QueryKey.rooms]: useMemo(() => [], []),
+			[QueryKey.picks]: useMemo(() => [], []),
+			[QueryKey.handshakes]: useMemo(() => [], []),
 		},
 		{
 			serialize: {
 				[QueryKey.people]: encodeJSON,
 				[QueryKey.options]: encodeJSON,
+				[QueryKey.rooms]: encodeJSON,
+				[QueryKey.picks]: encodeJSON,
+				[QueryKey.handshakes]: encodeJSON,
 			},
 			parse: {
 				[QueryKey.people]: decodeJSON,
 				[QueryKey.options]: decodeJSON,
+				[QueryKey.rooms]: decodeJSON,
+				[QueryKey.picks]: decodeJSON,
+				[QueryKey.handshakes]: decodeJSON,
 			},
 		}
 	);
@@ -75,6 +84,9 @@ const Settings: FC = ({ children }) => {
 							void setState({
 								[QueryKey.people]: value,
 								[QueryKey.options]: value,
+								[QueryKey.rooms]: null,
+								[QueryKey.picks]: null,
+								[QueryKey.handshakes]: null,
 							});
 						}}
 					>

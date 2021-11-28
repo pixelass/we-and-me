@@ -30,6 +30,11 @@ const Picks = () => {
 		serialize: encodeJSON,
 		fallback: useMemo(() => [], []),
 	});
+	const [options] = useQueryState<string[]>(QueryKey.options, {
+		parse: decodeJSON,
+		serialize: encodeJSON,
+		fallback: useMemo(() => [] as string[], []),
+	});
 	const [picked, setPicked] = useQueryState<string[]>(QueryKey.picks, {
 		parse: decodeJSON,
 		serialize: encodeJSON,
@@ -72,11 +77,12 @@ const Picks = () => {
 				<AccordionDetails>
 					<Stack direction="row" spacing={3} alignItems="center">
 						<Slider
+							key={pickSize}
 							valueLabelDisplay="on"
 							disabled={isDisabled}
 							defaultValue={pickSize}
 							min={1}
-							max={6}
+							max={Math.max(2, options.length)}
 							onChangeCommitted={(event_, value) => {
 								if (value !== pickSize) {
 									void setPickSize(value as number);
@@ -109,7 +115,7 @@ const Picks = () => {
 					<Typography>People {picked.length > 0 && `(${picked.length})`}</Typography>
 				</AccordionSummary>
 				<AccordionDetails>
-					{picked.sort().map((person, personIndex) => {
+					{picked.map((person, personIndex) => {
 						return (
 							<ListItem key={personIndex} sx={{ py: 0, minHeight: 24 }}>
 								{person}

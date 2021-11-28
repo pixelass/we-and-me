@@ -22,15 +22,23 @@ const People = () => {
 			[QueryKey.rooms]: useMemo(() => [], []),
 			[QueryKey.handshakes]: useMemo(() => [], []),
 			[QueryKey.picks]: useMemo(() => [], []),
+			[QueryKey.pickSize]: 1,
+			[QueryKey.roomSize]: 2,
 		},
 		{
 			serialize: {
 				[QueryKey.people]: encodeJSON,
 				[QueryKey.rooms]: encodeJSON,
+				[QueryKey.handshakes]: encodeJSON,
+				[QueryKey.picks]: encodeJSON,
 			},
 			parse: {
 				[QueryKey.people]: decodeJSON,
 				[QueryKey.rooms]: decodeJSON,
+				[QueryKey.handshakes]: decodeJSON,
+				[QueryKey.picks]: decodeJSON,
+				[QueryKey.pickSize]: Number.parseInt,
+				[QueryKey.roomSize]: Number.parseInt,
 			},
 		}
 	);
@@ -69,6 +77,8 @@ const People = () => {
 								[QueryKey.rooms]: null,
 								[QueryKey.picks]: null,
 								[QueryKey.handshakes]: null,
+								[QueryKey.pickSize]: null,
+								[QueryKey.roomSize]: null,
 							});
 						}}
 					/>
@@ -85,6 +95,8 @@ const People = () => {
 									[QueryKey.rooms]: null,
 									[QueryKey.picks]: null,
 									[QueryKey.handshakes]: null,
+									[QueryKey.pickSize]: null,
+									[QueryKey.roomSize]: null,
 								});
 							}}
 						>
@@ -99,6 +111,8 @@ const People = () => {
 									[QueryKey.rooms]: null,
 									[QueryKey.picks]: null,
 									[QueryKey.handshakes]: null,
+									[QueryKey.pickSize]: null,
+									[QueryKey.roomSize]: null,
 								});
 							}}
 						>
