@@ -40,7 +40,7 @@ const People = () => {
 		serialize: encodeJSON,
 		fallback: useMemo(() => [] as string[], []),
 	});
-	const isDisabled = people.length < 3;
+	const isDisabled = options.length < 3;
 
 	return (
 		<Card>
