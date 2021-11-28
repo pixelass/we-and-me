@@ -1,5 +1,5 @@
 import Header from "@/components/header";
-import Modal from "@/components/modal";
+import Settings from "@/components/settings";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import React, { ReactNode } from "react";
@@ -79,7 +79,7 @@ const Layout = ({ children }: Props) => {
 				<Toolbar />
 				{children}
 			</Box>
-			<Modal />
+			<Settings />
 		</Box>
 	);
 };

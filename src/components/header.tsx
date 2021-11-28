@@ -1,6 +1,8 @@
 import Logo from "@/components/logo";
+import { useCopyToClipboard } from "@/hooks/copy-to-clipboard";
 import { useStore } from "@/store";
 import SettingsIcon from "@mui/icons-material/Settings";
+import ShareIcon from "@mui/icons-material/Share";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -9,6 +11,7 @@ import React from "react";
 
 const Header = () => {
 	const setModal = useStore(state => state.setModal);
+	const { copy } = useCopyToClipboard();
 	return (
 		<AppBar
 			position="fixed"
@@ -24,6 +27,16 @@ const Header = () => {
 			<Toolbar>
 				<Logo />
 				<Box sx={{ flexGrow: 1 }} />
+				<IconButton
+					color="inherit"
+					size="large"
+					aria-label="Share"
+					onClick={() => {
+						copy(window.location.href);
+					}}
+				>
+					<ShareIcon color="inherit" />
+				</IconButton>
 				<IconButton
 					color="inherit"
 					size="large"

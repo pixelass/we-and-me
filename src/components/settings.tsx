@@ -13,7 +13,7 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import React, { FC, useEffect, useMemo } from "react";
 
-const Modal: FC = ({ children }) => {
+const Settings: FC = ({ children }) => {
 	const modal = useStore(state => state.modal);
 	const setModal = useStore(state => state.setModal);
 	const team = useStore(state => state.team);
@@ -121,4 +121,4 @@ const Modal: FC = ({ children }) => {
 	);
 };
 
-export default Modal;
+export default Settings;
