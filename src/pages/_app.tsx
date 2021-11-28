@@ -37,9 +37,9 @@ export const globalStyles = css`
 		max-width: 100vw;
 		min-height: 100vh;
 		margin: 0;
+		background-color: ${grey[900]};
 		&.dark-mode {
 			/* dark mode */
-			background-color: ${grey[900]};
 			-webkit-font-smoothing: antialiased;
 		}
 		&.light-mode {
@@ -56,7 +56,7 @@ export const globalStyles = css`
 `;
 
 const App = ({ Component, pageProps }) => {
-	const { value: darkMode } = useDarkMode();
+	const { value: darkMode } = useDarkMode(true);
 	const [theme, setTheme] = useState(dark);
 
 	useEffect(() => {
