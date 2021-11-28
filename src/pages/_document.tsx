@@ -1,4 +1,4 @@
-import {cache} from "@/configs/emotion/cache";
+import { cache } from "@/configs/emotion/cache";
 import createEmotionServer from "@emotion/server/create-instance";
 import Document, {
 	DocumentContext,
@@ -61,10 +61,10 @@ class AppDocument extends Document {
 	render() {
 		return (
 			<Html>
-				<Head/>
+				<Head />
 				<body>
-				<Main />
-				<NextScript />
+					<Main />
+					<NextScript />
 				</body>
 			</Html>
 		);

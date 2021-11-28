@@ -69,12 +69,12 @@ const Layout = ({ children }: Props) => {
 			{/* </Box> */}
 			<Box
 				component="main"
-				sx={theme => ({
+				sx={{
 					flexGrow: 1,
 					p: 3,
 					// Drawer
 					// width: { sm: `calc(100% - ${drawerWidth}px)` },
-				})}
+				}}
 			>
 				<Toolbar />
 				{children}

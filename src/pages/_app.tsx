@@ -6,13 +6,13 @@ import {
 	Global,
 	ThemeProvider as EmotionThemeProvider,
 } from "@emotion/react";
+import grey from "@mui/material/colors/grey";
 import { appWithTranslation } from "next-i18next";
-import Script from "next/script";
 import Head from "next/head";
+import Script from "next/script";
 import React, { useEffect, useState } from "react";
 import useDarkMode from "use-dark-mode";
 import pkg from "../../package.json";
-import grey from "@mui/material/colors/grey";
 
 export const fontFaces = css`
 	body {
@@ -40,8 +40,8 @@ export const globalStyles = css`
 		margin: 0;
 		&.dark-mode {
 			/* dark mode */
-			-webkit-font-smoothing: antialiased;
 			background-color: ${grey[900]};
+			-webkit-font-smoothing: antialiased;
 		}
 		&.light-mode {
 			/* light mode */
