@@ -3,12 +3,7 @@
  */
 module.exports = {
 	extends: ["xo-react", "prettier"],
-	ignores: [
-		"public",
-		"*.config.js",
-		"next-env.d.ts",
-		"types/*.d.ts",
-	],
+	ignores: ["public", "*.config.js", "next-env.d.ts", "types/*.d.ts"],
 	plugins: ["prettier"],
 	env: ["browser", "node"],
 	overrides: [
@@ -37,7 +32,7 @@ module.exports = {
 					},
 				],
 			},
-		}
+		},
 	],
 	prettier: true,
 	rules: {
@@ -47,6 +42,7 @@ module.exports = {
 		"react/no-array-index-key": 1,
 		"@typescript-eslint/no-base-to-string": 1,
 		"@typescript-eslint/restrict-template-expressions": 1,
-		"unicorn/prefer-object-from-entries": 1
+		"unicorn/prefer-object-from-entries": 1,
+		"prettier/prettier": 0,
 	},
 };
