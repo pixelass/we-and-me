@@ -4,6 +4,7 @@
   "description": "",
   "keywords": [],
   "main": "n.a.",
+  "license": "MIT",
   "scripts": {
     "build": "next build",
     "dev": "next dev",
@@ -22,7 +23,6 @@
     "unimported": "npx unimported@1.12.0",
     "xo": "xo",
     "xo:fix": "yarn xo --fix"
-
   },
   "dependencies": {
     "@emotion/cache": "11.6.0",
