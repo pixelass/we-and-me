@@ -1,4 +1,5 @@
 import Logo from "@/components/logo";
+import { useBitly } from "@/hooks/bitly";
 import { useCopyToClipboard } from "@/hooks/copy-to-clipboard";
 import { useStore } from "@/store";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -7,11 +8,18 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Header = () => {
 	const setModal = useStore(state => state.setModal);
 	const { copy } = useCopyToClipboard();
+	const [url, setUrl] = useState<null | string>(null);
+	const { data } = useBitly(url);
+	useEffect(() => {
+		if (data) {
+			copy(data.link);
+		}
+	}, [data]);
 	return (
 		<AppBar
 			position="fixed"
@@ -32,7 +40,7 @@ const Header = () => {
 					size="large"
 					aria-label="Share"
 					onClick={() => {
-						copy(window.location.href);
+						setUrl(window.location.href);
 					}}
 				>
 					<ShareIcon color="inherit" />
