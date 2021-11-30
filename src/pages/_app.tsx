@@ -9,6 +9,9 @@ import {
 import grey from "@mui/material/colors/grey";
 import { appWithTranslation } from "next-i18next";
 import Head from "next/head";
+import process from "process";
+import PubNub from "pubnub";
+import { PubNubProvider } from "pubnub-react";
 import React, { useEffect, useState } from "react";
 import useDarkMode from "use-dark-mode";
 import pkg from "../../package.json";
@@ -55,6 +58,12 @@ export const globalStyles = css`
 	}
 `;
 
+export const pubnub = new PubNub({
+	publishKey: process.env.NEXT_PUBLIC_PUBNUB_PUBLISH_KEY,
+	subscribeKey: process.env.NEXT_PUBLIC_PUBNUB_SUBSCRIBE_KEY,
+	uuid: process.env.NEXT_PUBLIC_PUBNUB_UUID,
+});
+
 const App = ({ Component, pageProps }) => {
 	const { value: darkMode } = useDarkMode(true);
 	const [theme, setTheme] = useState(dark);
@@ -94,7 +103,9 @@ const App = ({ Component, pageProps }) => {
 			</Head>
 			<EmotionCacheProvider value={cache}>
 				<EmotionThemeProvider theme={theme}>
-					<Component {...pageProps} />
+					<PubNubProvider client={pubnub}>
+						<Component {...pageProps} />
+					</PubNubProvider>
 				</EmotionThemeProvider>
 			</EmotionCacheProvider>
 		</>
