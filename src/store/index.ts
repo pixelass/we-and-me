@@ -1,10 +1,12 @@
 import create from "zustand";
 
 export interface StoreModel {
+	countdown: number;
 	modal: boolean;
 	drawer: boolean;
 	team: string;
 	roomName: string;
+	setCountDown(countdown: number): void;
 	setModal(modal: boolean): void;
 	setDrawer(drawer: boolean): void;
 	setTeam(team: string): void;
@@ -12,6 +14,10 @@ export interface StoreModel {
 }
 
 export const useStore = create<StoreModel>(set => ({
+	countdown: 0,
+	setCountDown(countdown) {
+		set({ countdown });
+	},
 	modal: false,
 	setModal(modal) {
 		set({ modal });

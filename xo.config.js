@@ -29,6 +29,7 @@ module.exports = {
 						tsx: "never",
 						css: "always",
 						json: "always",
+						mp3: "always",
 					},
 				],
 			},

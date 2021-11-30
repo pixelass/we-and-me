@@ -1,3 +1,4 @@
+import Countdown from "@/components/countdown";
 import Handshakes from "@/components/handshakes";
 import Layout from "@/components/layout";
 import People from "@/components/people";
@@ -15,8 +16,27 @@ const Page = () => {
 				spacing={2}
 				sx={theme => ({ maxWidth: theme.breakpoints.values.lg, mx: "auto" })}
 			>
-				<People />
 				<Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
+					<Box
+						sx={theme => ({
+							width: {
+								xs: "100%",
+								md: `calc((100% - ${theme.spacing(2)}) / 4 * 3)`,
+							},
+						})}
+					>
+						<People />
+					</Box>
+					<Box
+						sx={theme => ({
+							width: {
+								xs: "100%",
+								md: `calc((100% - ${theme.spacing(2)}) / 4)`,
+							},
+						})}
+					>
+						<Countdown />
+					</Box>
 					<Box
 						sx={theme => ({
 							width: {
