@@ -45,6 +45,8 @@
     "next": "12.0.4",
     "next-i18next": "9.2.0",
     "prettier": "2.5.0",
+    "pubnub": "^4.34.1",
+    "pubnub-react": "^2.1.1",
     "query-string": "7.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -53,6 +55,7 @@
     "tslib": "2.3.1",
     "use-dark-mode": "2.3.1",
     "use-sound": "4.0.1",
+    "uuid": "8.3.2",
     "zustand": "3.6.5"
   },
   "devDependencies": {
@@ -66,8 +69,10 @@
     "@types/lodash.take": "4.1.6",
     "@types/lodash.uniqwith": "4.5.6",
     "@types/node": "16.7.4",
+    "@types/pubnub": "^4.29.5",
     "@types/react": "17.0.37",
     "@types/react-dom": "17.0.11",
+    "@types/uuid": "8.3.3",
     "@typescript-eslint/eslint-plugin": "4.29.3",
     "@typescript-eslint/parser": "4.29.3",
     "eslint": "7.32.0",
