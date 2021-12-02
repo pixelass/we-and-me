@@ -72,6 +72,7 @@ const App = ({ Component, pageProps }) => {
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="initial-scale=1.0, width=device-width" />
 				<meta name="version" content={pkg.version} />
+				<meta name="description" content="Fancy Tools for fancy teams" />
 				<meta name="application-name" content="We & Me" />
 				<meta name="apple-mobile-web-app-capable" content="yes" />
 				<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -83,9 +84,7 @@ const App = ({ Component, pageProps }) => {
 				<meta name="msapplication-TileColor" content={theme.ui.colors.theme.background}/>
 				*/}
 				<meta name="msapplication-tap-highlight" content="no" />
-				{/* Enable when needed
-				<meta name="theme-color" content={theme.ui.colors.theme.background} />
-				*/}
+				<meta name="theme-color" content={theme.palette.primary.main} />
 				<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
 				<link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png" />
 				<link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16x16.png" />

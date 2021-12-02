@@ -74,6 +74,7 @@ const Countdown = () => {
 						type="number"
 						value={mm}
 						disabled={isActive()}
+						aria-label="miinutes"
 						onChange={event_ => {
 							const s = Math.max(0, Number.parseInt(ss, 10) * 1000);
 							const m = Math.max(
@@ -89,6 +90,7 @@ const Countdown = () => {
 						type="number"
 						value={ss}
 						disabled={isActive()}
+						aria-label="seconds"
 						onChange={event_ => {
 							const m = Math.max(0, Number.parseInt(mm, 10) * 60 * 1000);
 							const s = Math.max(
@@ -102,6 +104,7 @@ const Countdown = () => {
 				</CountdownDisplay>
 				<CardActions sx={{ justifyContent: "center" }}>
 					<IconButton
+						aria-label={isActive() ? "Stop" : "Start"}
 						onClick={() => {
 							if (isActive()) {
 								loopStop();
@@ -117,6 +120,7 @@ const Countdown = () => {
 						{isActive() ? <PauseIcon /> : <PlayArrowIcon />}
 					</IconButton>
 					<IconButton
+						aria-label="Stop"
 						onClick={() => {
 							loopStop();
 							setTime(duration);
