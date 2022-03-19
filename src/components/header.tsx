@@ -19,7 +19,7 @@ const Header = () => {
 		if (data) {
 			copy(data.link);
 		}
-	}, [data]);
+	}, [data, copy]);
 	return (
 		<AppBar
 			position="fixed"
