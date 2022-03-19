@@ -1,5 +1,6 @@
 import { QueryKey } from "@/constants/query-key";
 import { useQueryState } from "@/hooks/query-state";
+import { useRoundRobin } from "@/hooks/round-robin";
 import { decodeJSON, encodeJSON } from "@/utils/hash";
 import ClearIcon from "@mui/icons-material/Clear";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -16,10 +17,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
 import Typography from "@mui/material/Typography";
-import isEqual from "lodash.isequal";
-import shuffle from "lodash.shuffle";
-import uniqWith from "lodash.uniqwith";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 
 const Handshakes = () => {
 	const [handshakes, setHandshakes] = useQueryState<string[][][]>(QueryKey.handshakes, {
@@ -37,6 +35,13 @@ const Handshakes = () => {
 	});
 	const isDisabled = people.length < 3;
 
+	const { rounds, generate } = useRoundRobin(people);
+
+	useEffect(() => {
+		if (rounds) {
+			void setHandshakes(rounds);
+		}
+	}, [rounds]);
 	return (
 		<Card>
 			<CardHeader
@@ -47,50 +52,7 @@ const Handshakes = () => {
 							disabled={isDisabled}
 							aria-label="run"
 							color="primary"
-							onClick={() => {
-								const middle = Math.floor(people.length / 2);
-								const shuffledPeople = shuffle(people);
-								const a = shuffledPeople.slice(0, middle);
-								const b = shuffledPeople.slice(middle);
-
-								const rounds: string[][][] = [];
-								for (let i = 0; i < people.length - 1; i++) {
-									const round: string[][] = [];
-									for (let j = 0; j < middle; j++) {
-										round.push([a[j], b[j]].sort());
-									}
-
-									const f = a.pop();
-									const l = b.shift();
-									a.unshift(l);
-									b.push(f);
-									rounds.push(shuffle(round));
-								}
-
-								if (people.length % 2 === 1) {
-									const lastRound: string[][] = [];
-									for (let i = 0; i < people.length - 1; i++) {
-										const greeted = new Set(
-											rounds
-												.flat()
-												.filter(group => group.includes(people[i]))
-												.flatMap(([a, b]) => {
-													return a === people[i] ? b : a;
-												})
-										);
-										const notGreeted = people
-											.filter(person => person !== people[i])
-											.find(person => !greeted.has(person));
-										if (notGreeted) {
-											lastRound.push([people[i], notGreeted].sort());
-										}
-									}
-
-									rounds.push(shuffle(uniqWith(lastRound, isEqual)));
-								}
-
-								void setHandshakes(rounds);
-							}}
+							onClick={generate}
 						>
 							<PlayArrowIcon />
 						</IconButton>
