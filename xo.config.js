@@ -45,5 +45,6 @@ module.exports = {
 		"@typescript-eslint/restrict-template-expressions": 1,
 		"unicorn/prefer-object-from-entries": 1,
 		"prettier/prettier": 0,
+		"@typescript-eslint/no-loop-func": 1,
 	},
 };
