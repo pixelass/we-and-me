@@ -1,7 +1,7 @@
 import { QueryKey } from "@/constants/query-key";
 import { useQueryState } from "@/hooks/query-state";
-import { useRoundRobin } from "@/hooks/round-robin";
 import { decodeJSON, encodeJSON } from "@/utils/hash";
+import { getTournament, roundRobin } from "@/utils/round-robin";
 import ClearIcon from "@mui/icons-material/Clear";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
@@ -17,7 +17,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
 import Typography from "@mui/material/Typography";
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 
 const Handshakes = () => {
 	const [handshakes, setHandshakes] = useQueryState<string[][][]>(QueryKey.handshakes, {
@@ -35,13 +35,6 @@ const Handshakes = () => {
 	});
 	const isDisabled = people.length < 3;
 
-	const { rounds, generate } = useRoundRobin(people);
-
-	useEffect(() => {
-		if (rounds) {
-			void setHandshakes(rounds);
-		}
-	}, [rounds]);
 	return (
 		<Card>
 			<CardHeader
@@ -52,7 +45,9 @@ const Handshakes = () => {
 							disabled={isDisabled}
 							aria-label="run"
 							color="primary"
-							onClick={generate}
+							onClick={() => {
+								void setHandshakes(getTournament(roundRobin(people)));
+							}}
 						>
 							<PlayArrowIcon />
 						</IconButton>
