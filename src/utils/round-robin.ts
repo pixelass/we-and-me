@@ -1,46 +1,63 @@
-import shuffle from "lodash.shuffle";
-
-const rotateItems = <T>([a, b]: T[][]) => {
-	// A run rotates both arrays while one item stays fixed;
-	// Remove the first item
-	const [fixed] = a.splice(0, 1);
-	// Rotate the arrays
-	a.unshift(b.shift());
-	b.push(a.pop());
-	// Add the previously removed item back to its initial position
-	a.unshift(fixed);
-	return [a, b];
-};
-
 /**
  * Implements a round-robin tournament algorithm. {@see https://en.wikipedia.org/wiki/Round-robin_tournament}
- * @param group
+ * @param items
  */
-export const roundRobin = <T>(group: T[]) => {
+import shuffle from "lodash.shuffle";
+
+export const roundRobin = <T>(items: T[]): T[][][] => {
+	const filled = items.length % 2 ? [...items, null] : items;
+	const iterations = filled.length - 1;
+	const a = filled;
+	const b = filled.splice(Math.floor(filled.length / 2)).reverse();
 	const rounds: T[][][] = [];
-	// Clone the array before we split it
-	const a = [...group];
-	// Split the array into 2 equal parts.
-	// When the length is odd
-	// Then the first array has one extra item
-	const b = a.splice(Math.ceil(group.length / 2));
-	b.reverse();
-	// Create a mutable array
-	let groups = [a, b];
-	// We need n - 1 iterations, where n is the length of the group
-	for (let iteration = 0; iteration < group.length - 1; iteration++) {
-		// Then create pairs for each round
-		// And remove rounds with one item
-		rounds.push(
-			shuffle(
-				groups[0]
-					.map((item, index) => [item, groups[1][index]].filter(Boolean))
-					.filter(item => item.length > 1)
-			)
-		);
-		// For every iteration, rotate the items
-		groups = rotateItems(groups);
+	if (a.length > 1 && b.length > 0) {
+		for (let i = 0; i < iterations; i++) {
+			rounds.push([[...a], [...b]]);
+			const fixed = a.shift();
+			a.unshift(b.shift());
+			b.push(a.pop());
+			a.unshift(fixed);
+		}
 	}
 
 	return rounds;
+};
+
+interface SimpleSort {
+	(a: number, b: number): number;
+	(a: string, b: string): number;
+}
+
+interface GetTournament {
+	(rounds: number[][][], sort?: SimpleSort): number[][][];
+	(rounds: string[][][], sort?: SimpleSort): string[][][];
+	<T>(rounds: T[][][], sort: (a: T, b: T) => number): T[][][];
+}
+
+const simpleSort: SimpleSort = <T>(a: T, b: T) => (a > b ? 1 : a < b ? -1 : 0);
+
+export const getTournament: GetTournament = <T>(
+	rounds: T[][][],
+	sort?: (a: T, b: T) => number
+): T[][][] => {
+	return rounds.map(([a, b]) =>
+		shuffle(
+			a
+				.map((item, index) => {
+					switch (typeof item) {
+						case "string":
+							return ([item, b[index]].filter(Boolean) as unknown as string[]).sort(
+								simpleSort
+							);
+						case "number":
+							return ([item, b[index]].filter(Boolean) as unknown as number[]).sort(
+								simpleSort
+							);
+						default:
+							return [item, b[index]].filter(Boolean).sort(sort);
+					}
+				})
+				.filter(group => group.length > 1) as T[][]
+		)
+	);
 };
