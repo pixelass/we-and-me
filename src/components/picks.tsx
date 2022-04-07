@@ -1,3 +1,4 @@
+import { MarkdownIcon } from "@/components/icons";
 import { QueryKey } from "@/constants/query-key";
 import { useQueryState } from "@/hooks/query-state";
 
@@ -16,9 +17,14 @@ import ListItem from "@mui/material/ListItem";
 import Slider from "@mui/material/Slider";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import copyToClipboard from "copy-to-clipboard";
 import shuffle from "lodash.shuffle";
 import take from "lodash.take";
 import React, { useMemo } from "react";
+
+const createMarkdownList = (value: string[]) => {
+	return value.map(item => `1. ${item}`).join("\n");
+};
 
 const Picks = () => {
 	const [pickSize, setPickSize] = useQueryState(QueryKey.pickSize, {
@@ -66,6 +72,15 @@ const Picks = () => {
 							}}
 						>
 							<ClearIcon />
+						</IconButton>
+						<IconButton
+							aria-label="copy as markdown"
+							color="inherit"
+							onClick={() => {
+								copyToClipboard(createMarkdownList(picked));
+							}}
+						>
+							<MarkdownIcon />
 						</IconButton>
 					</>
 				}

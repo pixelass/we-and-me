@@ -1,3 +1,4 @@
+import { MarkdownIcon } from "@/components/icons";
 import { QueryKey } from "@/constants/query-key";
 import { useQueryState } from "@/hooks/query-state";
 import chunkEvenly from "@/utils/chunk-evenly";
@@ -19,8 +20,20 @@ import ListSubheader from "@mui/material/ListSubheader";
 import Slider from "@mui/material/Slider";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import copyToClipboard from "copy-to-clipboard";
 import shuffle from "lodash.shuffle";
 import React, { useMemo } from "react";
+
+const createMarkdownList = (roomName: string, rooms: string[][]) => {
+	return rooms
+		.map((room, roomIndex) =>
+			[
+				`* ${roomName}-${roomIndex + 1}`,
+				room.map(person => `    * ${person}`).join("\n"),
+			].join("\n")
+		)
+		.join("\n");
+};
 
 const Rooms = () => {
 	const [size, setSize] = useQueryState(QueryKey.roomSize, {
@@ -70,6 +83,15 @@ const Rooms = () => {
 							}}
 						>
 							<ClearIcon />
+						</IconButton>
+						<IconButton
+							aria-label="copy as markdown"
+							color="inherit"
+							onClick={() => {
+								copyToClipboard(createMarkdownList(roomName, rooms));
+							}}
+						>
+							<MarkdownIcon />
 						</IconButton>
 					</>
 				}
